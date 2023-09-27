@@ -20,7 +20,7 @@ public class AppCardDeliveryTest {
 
     @Test
     public void shouldBeSuccessful() {
-        Configuration.timeout = 15;
+        Configuration.timeout = 40;
         open("http://localhost:9999");
         $("[data-test-id='city'] input").setValue("Москва");
         String currentDate = generateDate(4, "dd.MM.yyyy");
@@ -29,9 +29,10 @@ public class AppCardDeliveryTest {
         $("[data-test-id='name'] input").setValue("Иванов Иван Иванович");
         $("[data-test-id='phone'] input").setValue("+71231231212");
         $("[data-test-id='agreement']").click();
+        $("button.button").click();
         $("notification__content")
-                .shouldBe(Condition.visible, Duration.ofSeconds(15))
-                .shouldHave(Condition.exactText("Встреча успешно забронирована на " + currentDate));
+                .should(Condition.visible, Duration.ofSeconds(15))
+                .shouldHave(Condition.exactText("Встреча успешно забронирована на " + currentDate),Duration.ofSeconds(15));
 
     }
 
